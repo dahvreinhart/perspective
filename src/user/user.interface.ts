@@ -23,4 +23,6 @@ export interface IUser {
      * The date when the user was last updated.
      */
     updatedAt: Date;
-}
+};
+
+export type UserCreationData = Pick<IUser, 'name' | 'email'>;
