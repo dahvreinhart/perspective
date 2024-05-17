@@ -19,6 +19,10 @@ export class User {
     unique: true,
   })
   email: string;
+
+  // Specified explicitly for proper typing
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
