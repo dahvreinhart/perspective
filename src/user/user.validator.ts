@@ -1,6 +1,12 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsIn, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { SortOrder } from "mongoose";
+import { ApiProperty } from '@nestjs/swagger';
+import {
+    IsEmail,
+    IsIn,
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+} from 'class-validator';
+import { SortOrder } from 'mongoose';
 
 export class GetUsersSortQueryDTO {
     @IsOptional()

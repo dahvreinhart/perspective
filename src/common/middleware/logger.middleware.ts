@@ -11,7 +11,9 @@ export class LoggerMiddleware implements NestMiddleware {
     }
 
     use(req: Request, res: Response, next: NextFunction) {
-        this.logger.log(`[REQUEST: ${req.method} ${req.originalUrl}] [QUERY: ${JSON.stringify(req.query)}] [BODY: ${JSON.stringify(req.body)}]`);
+        this.logger.log(
+            `[REQUEST: ${req.method} ${req.originalUrl}] [QUERY: ${JSON.stringify(req.query)}] [BODY: ${JSON.stringify(req.body)}]`,
+        );
         next();
     }
 }

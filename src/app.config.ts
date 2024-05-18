@@ -1,4 +1,4 @@
 export const BasicValidationOptions = {
     transform: true,
-    forbidNonWhitelisted: true
-}
+    forbidNonWhitelisted: true,
+};

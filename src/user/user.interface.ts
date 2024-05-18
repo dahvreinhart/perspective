@@ -18,11 +18,11 @@ export interface IUser {
      * The creation date of the user.
      */
     createdAt: Date;
-    
+
     /**
      * The date when the user was last updated.
      */
     updatedAt: Date;
-};
+}
 
 export type UserCreationData = Pick<IUser, 'name' | 'email'>;
