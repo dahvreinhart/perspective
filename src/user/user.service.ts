@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUser } from './user.interface';
 import { CreateUserBodyDTO, GetUsersSortQueryDTO } from './user.validator';
+import { INVALID_EMAIL_FOR_USER_CREATION_ERROR } from 'src/common/errors';
 
 @Injectable()
 export class UserService {
@@ -19,7 +20,7 @@ export class UserService {
   public async createUser(creationData: CreateUserBodyDTO): Promise<IUser> {
     const emailDuplicate = await this.userModel.countDocuments({ email: creationData.email });
     if (emailDuplicate) {
-        throw new HttpException(`Invalid unique email for user creation - this email has already been used: ${creationData.email}`, HttpStatus.BAD_REQUEST);
+        throw new HttpException(`${INVALID_EMAIL_FOR_USER_CREATION_ERROR}: ${creationData.email}`, HttpStatus.BAD_REQUEST);
     }
 
     const newUserModel = new this.userModel(creationData);
