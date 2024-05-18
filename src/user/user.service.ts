@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from './user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -11,34 +11,44 @@ export class UserService {
 
   private readonly DEFAULT_USER_SORT_ORDER = 'desc';
 
+  /**
+   * Crate a new user object and persist it in the database.
+   *
+   * @param creationData
+   */
   public async createUser(creationData: CreateUserBodyDTO): Promise<IUser> {
-    console.log(creationData);
-    // Error handling
+    const emailDuplicate = await this.userModel.countDocuments({ email: creationData.email });
+    if (emailDuplicate) {
+        throw new HttpException(`Invalid unique email for user creation - this email has already been used: ${creationData.email}`, HttpStatus.BAD_REQUEST);
+    }
 
-    const newUser = new this.userModel(creationData);
-    const newUserObject = await newUser.save();
+    const newUserModel = new this.userModel(creationData);
+    const newUserObject = await newUserModel.save();
 
-    return {
-        uuid: newUserObject.uuid,
-        name: newUserObject.name,
-        email: newUserObject.email,
-        createdAt: newUserObject.createdAt,
-        updatedAt: newUserObject.updatedAt,
-    };
+    return this.sanitizeUserFields(newUserObject);
   }
 
+  /**
+   * Fetch all users.
+   *
+   * @param sortQuery
+   */
   public async getUsers(sortQuery?: GetUsersSortQueryDTO): Promise<IUser[]> {
-    console.log(sortQuery, sortQuery?.created, this.DEFAULT_USER_SORT_ORDER);
-    // Sorting and filtering
-    // Error handling for sorting and filtering params
-    // Mapping of fields in a mapper
+    return (await this.userModel.find().sort({ createdAt: sortQuery?.created || this.DEFAULT_USER_SORT_ORDER })).map((user) => this.sanitizeUserFields(user));
+  }
 
-    return (await this.userModel.find().sort({ createdAt: sortQuery?.created || this.DEFAULT_USER_SORT_ORDER })).map((user) => ({
-        uuid: user.uuid,
-        name: user.name,
-        email: user.email,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-    }));
+  /**
+   * Small helper method to sanitize user DB objects and enforce policy on publically accessible fields.
+   *
+   * @param rawUser
+   */
+  private sanitizeUserFields(rawUser: User): IUser {
+    return {
+        uuid: rawUser.uuid,
+        name: rawUser.name,
+        email: rawUser.email,
+        createdAt: rawUser.createdAt,
+        updatedAt: rawUser.updatedAt,
+    }
   }
 }
