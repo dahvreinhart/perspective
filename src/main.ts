@@ -22,9 +22,7 @@ async function bootstrap() {
 
     const logger = new Logger(SERVICE_NAME);
     await app.listen(PORT, () => {
-        logger.log(
-            `Application is running successfully at http://localhost:${PORT}`,
-        );
+        logger.log(`Application is running successfully at http://localhost:${PORT}`);
     });
 }
 

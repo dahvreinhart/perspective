@@ -11,12 +11,7 @@ describe('UserService', () => {
     beforeEach(async () => {
         module = await Test.createTestingModule({
             providers: [UserService],
-            imports: [
-                MongooseModule.forRoot(DB_URL_TEST),
-                MongooseModule.forFeature([
-                    { name: 'User', schema: UserSchema },
-                ]),
-            ],
+            imports: [MongooseModule.forRoot(DB_URL_TEST), MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
         }).compile();
 
         service = module.get<UserService>(UserService);

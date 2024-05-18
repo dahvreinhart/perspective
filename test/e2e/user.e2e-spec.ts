@@ -45,9 +45,7 @@ describe('UserController (e2e)', () => {
         it('should succeed and create a new user', async () => {
             const creationData = { name: 'Test Name', email: 'test@test.com' };
 
-            const response = await request(app.getHttpServer())
-                .post('/users')
-                .send(creationData);
+            const response = await request(app.getHttpServer()).post('/users').send(creationData);
 
             expect(response.status).toEqual(201);
             expect(response.body.uuid).toEqual(expect.any(String));

@@ -18,14 +18,9 @@ export class UserService {
      * @param creationData
      */
     public async createUser(creationData: CreateUserBodyDTO): Promise<IUser> {
-        const emailDuplicate = await this.userModel.countDocuments({
-            email: creationData.email,
-        });
+        const emailDuplicate = await this.userModel.countDocuments({ email: creationData.email });
         if (emailDuplicate) {
-            throw new HttpException(
-                `${INVALID_EMAIL_FOR_USER_CREATION_ERROR}: ${creationData.email}`,
-                HttpStatus.BAD_REQUEST,
-            );
+            throw new HttpException(`${INVALID_EMAIL_FOR_USER_CREATION_ERROR}: ${creationData.email}`, HttpStatus.BAD_REQUEST);
         }
 
         const newUserModel = new this.userModel(creationData);
@@ -40,11 +35,8 @@ export class UserService {
      * @param sortQuery
      */
     public async getUsers(sortQuery?: GetUsersSortQueryDTO): Promise<IUser[]> {
-        return (
-            await this.userModel.find().sort({
-                createdAt: sortQuery?.created || this.DEFAULT_USER_SORT_ORDER,
-            })
-        ).map((user) => this.sanitizeUserFields(user));
+        const users = await this.userModel.find().sort({ createdAt: sortQuery?.created || this.DEFAULT_USER_SORT_ORDER });
+        return users.map((user) => this.sanitizeUserFields(user));
     }
 
     /**

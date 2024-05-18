@@ -13,12 +13,7 @@ describe('UserController', () => {
         module = await Test.createTestingModule({
             controllers: [UserController],
             providers: [UserService],
-            imports: [
-                MongooseModule.forRoot(DB_URL_TEST),
-                MongooseModule.forFeature([
-                    { name: 'User', schema: UserSchema },
-                ]),
-            ],
+            imports: [MongooseModule.forRoot(DB_URL_TEST), MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
         }).compile();
 
         controller = module.get<UserController>(UserController);
