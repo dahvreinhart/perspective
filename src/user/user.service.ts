@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUser } from './user.interface';
 import { CreateUserBodyDTO, GetUsersSortQueryDTO } from './user.validator';
-import { INVALID_EMAIL_FOR_USER_CREATION_ERROR } from 'src/common/errors';
+import { INVALID_EMAIL_FOR_USER_CREATION_ERROR } from '../../src/common/errors';
 
 @Injectable()
 export class UserService {

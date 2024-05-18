@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, Query, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
-import { IUser, UserCreationData } from './user.interface';
+import { IUser } from './user.interface';
 import { CreateUserBodyDTO, GetUsersSortQueryDTO } from './user.validator';
-import { BasicValidationOptions } from 'src/app.config';
+import { BasicValidationOptions } from '../../src/app.config';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('users')
