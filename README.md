@@ -24,6 +24,29 @@ A small web application for interacting with users.
 
 Author: Dahv Reinhart
 
+## For reviewers
+
+Thanks for reviewing this code! 😊
+
+I adapted the boiler plate provided and refactored it into a NestJS application. I really like this framework because it has great out-of-the-box features for a lot of really important application functionality. I tried to focus on making the application robust, clean and extensible. One of my goals was for the next dev(s) who look at the code to be able to understand, maintain and expand it easily.
+
+This web application has some cool features:
+- Full dependancy injection with class-based controllers and services
+- Global request logging including error response logging (just to console for now)
+- Complete pre-controller parameter validation
+- Linting and formatting policy defined and enforced
+- 100% e2e test coverage (no unit tests for now)
+- Exhaustive OpenAPI documentation (see below)
+
+Some possible next steps for the application could be:
+- Implement full suite of unit tests
+- Paginate the get users response (unsafe to respond full DB collection contents)
+- Impelement additional user functionality (eg. update, delete, bulk create)
+- Implement additional platform functionality (eg. authentication)
+- Flesh out the monitoring (persist application logs and errors or pipe them to a service)
+
+As a last note, one of the choices I made was to implement UUIDs for the user objects instead of using the DB default ObjectIDs (or sequential IDs). In my experience, this is best practice. 
+
 ## Installation
 
 ```bash
@@ -31,6 +54,8 @@ $ npm install
 ```
 
 ## Running the app
+
+( ! ) Ensure you have MongDB runing locally before sarting the app.
 
 ```bash
 # development
@@ -51,10 +76,11 @@ $ npm run test
 
 # e2e tests
 $ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
+
+## Documentation
+
+When you run the app in `dev` mode, the documentation is automatically generated and served at `http://localhost:<PORT>/api`. Simply navigate to this URL in your browser to view the API documentation.
 
 ## License
 

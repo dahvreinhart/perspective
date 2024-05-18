@@ -2,9 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from './user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { IUser } from './user.interface';
 import { CreateUserBodyDTO, GetUsersSortQueryDTO } from './user.validator';
-import { INVALID_EMAIL_FOR_USER_CREATION_ERROR } from '../../src/common/errors';
+import { INVALID_EMAIL_FOR_USER_CREATION_ERROR } from '../common/errors';
 
 @Injectable()
 export class UserService {
@@ -17,7 +16,7 @@ export class UserService {
      *
      * @param creationData
      */
-    public async createUser(creationData: CreateUserBodyDTO): Promise<IUser> {
+    public async createUser(creationData: CreateUserBodyDTO): Promise<User> {
         const emailDuplicate = await this.userModel.countDocuments({ email: creationData.email });
         if (emailDuplicate) {
             throw new HttpException(`${INVALID_EMAIL_FOR_USER_CREATION_ERROR}: ${creationData.email}`, HttpStatus.BAD_REQUEST);
@@ -34,7 +33,7 @@ export class UserService {
      *
      * @param sortQuery
      */
-    public async getUsers(sortQuery?: GetUsersSortQueryDTO): Promise<IUser[]> {
+    public async getUsers(sortQuery?: GetUsersSortQueryDTO): Promise<User[]> {
         const users = await this.userModel.find().sort({ createdAt: sortQuery?.created || this.DEFAULT_USER_SORT_ORDER });
         return users.map((user) => this.sanitizeUserFields(user));
     }
@@ -44,7 +43,7 @@ export class UserService {
      *
      * @param rawUser
      */
-    private sanitizeUserFields(rawUser: User): IUser {
+    private sanitizeUserFields(rawUser: User): User {
         return {
             uuid: rawUser.uuid,
             name: rawUser.name,
