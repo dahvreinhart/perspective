@@ -24,7 +24,7 @@ A small web application for interacting with users.
 
 Author: Dahv Reinhart
 
-## For reviewers
+## For Reviewers
 
 Thanks for reviewing this code! 😊
 
@@ -36,7 +36,8 @@ This web application has some cool features:
 - Complete pre-controller parameter validation
 - Linting and formatting policy defined and enforced
 - 100% e2e test coverage (no unit tests for now)
-- Exhaustive OpenAPI documentation (see below)
+- Customizable application globals using environment variables
+- Exhaustive OpenAPI documentation (see below for more info about the docs)
 
 Some possible next steps for the application could be:
 - Implement full suite of unit tests
@@ -49,7 +50,7 @@ As a last note, one of the choices I made was to implement UUIDs for the user ob
 
 ## Dependancies
 
-- MongoDB
+- MongoDB (https://www.mongodb.com/try/download/community)
 
 ## Installation
 
@@ -59,7 +60,7 @@ $ npm install
 
 ## Running the app
 
-( ! ) Ensure you have MongDB runing locally before sarting the app.
+( ! ) Ensure you have a MongoDB server running locally before sarting the app.
 
 ```bash
 # development
