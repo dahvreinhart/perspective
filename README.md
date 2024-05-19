@@ -28,7 +28,7 @@ Author: Dahv Reinhart
 
 Thanks for reviewing this code! 😊
 
-I adapted the boiler plate provided and refactored it into a NestJS application. I really like this framework because it has great out-of-the-box features for a lot of really important application functionality. I tried to focus on making the application robust, clean and extensible. One of my goals was for the next dev(s) who look at the code to be able to understand, maintain and expand it easily.
+I adapted the ExpressJS-focused boiler plate which was provided and refactored it into a NestJS application. I really like this framework because it has great support for a lot of important application functionality. I tried to focus on making the application robust, clean, extensible and scalable. One of the goals was for the next dev(s) who look at the code to be able to understand, maintain and expand it easily.
 
 This web application has some cool features:
 - Full dependancy injection with class-based controllers and services
@@ -43,9 +43,13 @@ Some possible next steps for the application could be:
 - Paginate the get users response (unsafe to respond full DB collection contents)
 - Impelement additional user functionality (eg. update, delete, bulk create)
 - Implement additional platform functionality (eg. authentication)
-- Flesh out the monitoring (persist application logs and errors or pipe them to a service)
+- Flesh out the monitoring (eg. persist application logs and errors or pipe them to a service)
 
-As a last note, one of the choices I made was to implement UUIDs for the user objects instead of using the DB default ObjectIDs (or sequential IDs). In my experience, this is best practice. 
+As a last note, one of the choices I made was to implement UUIDs for the user objects instead of using the DB default ObjectIDs (or sequential IDs). In my experience, this is best practice. Therefore, you will not see any 'ID' field in the responses from these endpoints, only UUIDs.
+
+## Dependancies
+
+- MongoDB
 
 ## Installation
 
@@ -71,11 +75,11 @@ $ npm run start:prod
 ## Test
 
 ```bash
-# unit tests
-$ npm run test
-
 # e2e tests
 $ npm run test:e2e
+
+# unit tests
+$ npm run test
 ```
 
 ## Documentation

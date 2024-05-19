@@ -12,7 +12,7 @@ export class UserController {
 
     /**
      * Fetch all users.
-     * Param are pre-validated.
+     * Params are pre-validated.
      *
      * @param query
      */
